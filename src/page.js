@@ -1,7 +1,7 @@
 import { titleCase } from "./utils.js";
 import { createList } from "./lists-and-projects.js";
 import { createProject } from "./lists-and-projects.js";
-import { projects } from "./lists-and-projects.js";
+import { projectList } from "./lists-and-projects.js";
 export let activeProject;
 
 function setActive(proj) {
@@ -15,20 +15,15 @@ function setActive(proj) {
 
 //Create project edit DOM object
 function createEditButton (project, buttonType, buttonText) {
+    const editProjectDialog = document.querySelector("#edit-project");
     const newProjectEditButton = document.createElement("button");
     newProjectEditButton.classList.add(buttonType);
     project.appendChild(newProjectEditButton)
     newProjectEditButton.textContent = buttonText
     newProjectEditButton.addEventListener("click", (event) => {
         setActive(project);
-        editProject(project);
+        editProjectDialog.showModal();
     })
-}
-
-//Project editing functionality
-function editProject(project) {
-    const editProjectDialog = document.querySelector("#edit-project");
-    editProjectDialog.showModal();
 }
 
 //Handle editing form
@@ -37,13 +32,20 @@ export const handleEditProjectForm = function() {
     const editProjectForm = document.querySelector("#edit-project-form");
     editProjectForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        activeProject.children[0].textContent = editProjectForm.children[0].children[1].value;
+        const formData = new FormData(editProjectForm);
+        projectList[formData.get("title")] = projectList[activeProject.children[0].textContent]
+        delete projectList[activeProject.children[0].textContent];
+        activeProject.children[0].textContent = formData.get("title");
         editProjectForm.reset();
         editProjectDialog.close();
     })
 }
 
 export const createProjectElement = function (title, active = false) {
+    if (title in projectList) {
+        return 1
+    }
+
     createProject(title);
 
     const projects = document.querySelector(".projects");
@@ -82,22 +84,14 @@ export const createItemElement = function (item) {
 }
 
 //Create a new item (project or task)
-function createItem (formId) {
-    const newInfo = [];
+function createItem (formId, formData) {
     const newDialog = document.querySelector(formId);
     const newForm = document.querySelector(`${formId}-form`);
-    for (const row of newForm.children) {
-        for (const child of row.children) {
-            if (child.hasAttribute('id')) {
-                newInfo.push(child.value);
-            }
-        }
-    }
     if (formId === "#new-list") {
-        const newList = createList(newInfo[0], newInfo[1], newInfo[2], newInfo[3]);
+        const newList = createList(formData.get("title"), formData.get("desc"), formData.get("due"), formData.get("prio"));
         createItemElement(newList);
     } else {
-        createProjectElement(newInfo[0], true);
+        createProjectElement(formData.get("title"), true);
     }
     newForm.reset();
     newDialog.close();
@@ -108,7 +102,8 @@ export const addType = function (formId) {
     const newForm = document.querySelector(`${formId}-form`);
     newForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        createItem(formId);
+        const formData = new FormData(newForm);
+        createItem(formId, formData);
     })
 }
 

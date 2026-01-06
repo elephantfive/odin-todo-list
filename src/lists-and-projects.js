@@ -1,4 +1,4 @@
-export const projects = {};
+export const projectList = {};
 
 //Create to-do list item object
 export const createList = function (title, desc, due, prio) {
@@ -12,5 +12,5 @@ export const editList = function (list, itemType, textVal) {
 
 //Create project object
 export const createProject = function (title) {
-    projects[title] = [];
+    projectList[title] = [];
 }
