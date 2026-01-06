@@ -3,6 +3,10 @@ import { createList } from "./lists-and-projects.js";
 export let activeProject;
 
 function setActive(proj) {
+    const projects = document.querySelector(".projects");
+    for (const child of projects.children) {
+        child.classList.remove("active");
+    }
     activeProject = proj;
     proj.classList.add("active");
 }
@@ -24,9 +28,6 @@ export const createProject = function (title, active = false) {
 
     project.addEventListener("click", (event) => {
         event.preventDefault();
-        for (const child of projects.children) {
-            child.classList.remove("active");
-        }
         setActive(project);
     });
 
