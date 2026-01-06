@@ -28,7 +28,7 @@ function createEditButton (project, buttonType, buttonText) {
 }
 
 //Handle editing form
-export const initEditProjectForm = function() {
+function initEditProjectForm() {
     const editProjectDialog = document.querySelector("#edit-project");
     const editProjectForm = document.querySelector("#edit-project-form");
     editProjectForm.addEventListener("submit", (event) => {
@@ -46,6 +46,7 @@ export const initEditProjectForm = function() {
     })
 }
 
+//create project DOM
 export const createProjectElement = function (title, active = false) {
     if (title in projectList) {
         return 1
@@ -72,6 +73,14 @@ export const createProjectElement = function (title, active = false) {
     projects.appendChild(project);
 }
 
+//Create to-do edit button
+function createListEditButton (list) {
+    const newEditButton = document.createElement("button");
+    newEditButton.classList.add('list-edit');
+    list.appendChild(newEditButton);
+    newEditButton.textContent = "Edit to-do list";
+}
+
 //Create to-do item DOM object
 export const createItemElement = function (item) {
     const newItem = document.createElement("div");
@@ -85,6 +94,7 @@ export const createItemElement = function (item) {
     }
 
     newItem.appendChild(itemList);
+    createListEditButton(newItem);
     activeProject.appendChild(newItem);
 }
 
