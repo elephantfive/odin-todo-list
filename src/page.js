@@ -87,7 +87,7 @@ function createListEditButton (list) {
     })
 }
 
-//Edit to-do list via form
+//Edit to-do list via form TO-DO!
 function initEditListForm() {
     const editListDialog = document.querySelector("edit-list")
     const editListForm = document.querySelector("#edit-list-form")
