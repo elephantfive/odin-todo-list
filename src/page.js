@@ -56,18 +56,30 @@ export const createItemElement = function (item) {
     activeProject.appendChild(newItem);
 }
 
-export const createProjectForm = function () {
-    const newProjectInfo = [];
-    const newProjectDialog = document.querySelector("#new-project");
-    const newProjectForm = document.querySelector("#new-project-form");
-
-    newProjectForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        for (const row of newProjeftForm.children) {
-            if 
+//Create a new item (project or task)
+function createItem (formId) {
+    const newInfo = [];
+    const newDialog = document.querySelector(formId);
+    const newForm = document.querySelector(`${formId}-form`);
+    for (const row of newForm.children) {
+        for (const child of row.children) {
+            if (child.hasAttribute('id')) {
+                newInfo.push(child.value);
+                child.value = '';
+            }
         }
-    })
+    }
+    newDialog.close();
+    console.log(newInfo);
+}
 
+//Add event listener for either project or task form submission
+export const addType = function (formId) {
+    const newForm = document.querySelector(`${formId}-form`);
+    newForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        createItem(formId);
+    })
 }
 
 //Add event listener for new project/task buttons
