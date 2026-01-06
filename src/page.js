@@ -3,6 +3,7 @@ import { createList } from "./lists-and-projects.js";
 import { createProject } from "./lists-and-projects.js";
 import { projectList } from "./lists-and-projects.js";
 let activeProject;
+let activeList;
 
 //Set active project
 function setActive(proj) {
@@ -27,7 +28,7 @@ function createEditButton (project, buttonType, buttonText) {
     })
 }
 
-//Handle editing form
+//Handle editing project form
 function initEditProjectForm() {
     const editProjectDialog = document.querySelector("#edit-project");
     const editProjectForm = document.querySelector("#edit-project-form");
@@ -75,10 +76,30 @@ export const createProjectElement = function (title, active = false) {
 
 //Create to-do edit button
 function createListEditButton (list) {
+    activeList = list;
     const newEditButton = document.createElement("button");
     newEditButton.classList.add('list-edit');
     list.appendChild(newEditButton);
     newEditButton.textContent = "Edit to-do list";
+    newEditButton.addEventListener("click", (event) => {
+        const editListDialog = document.querySelector("#edit-list");
+        editListDialog.showModal();
+    })
+}
+
+//Edit to-do list via form
+function initEditListForm() {
+    const editListDialog = document.querySelector("edit-list")
+    const editListForm = document.querySelector("#edit-list-form")
+    editListForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const formData = new FormData(editListForm);
+        for (const key in activeList) {
+            activeList[key] = formData[key];
+        }
+        editListForm.reset();
+        editListDialog.close();
+    })
 }
 
 //Create to-do item DOM object
@@ -139,4 +160,5 @@ export const domInit = function () {
     initCreateForm("#new-list");
     initCreateDialogButtons()
     initEditProjectForm();
+    initEditListForm()
 }
