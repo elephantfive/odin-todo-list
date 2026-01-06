@@ -7,6 +7,8 @@ function setActive(proj) {
     proj.classList.add("active");
 }
 
+//Create project 
+
 //Create project DOM object
 export const createProject = function (title, active = false) {
     const projects = document.querySelector(".projects");
@@ -73,7 +75,7 @@ function createItem (formId) {
         const newList = createList(newInfo[0], newInfo[1], newInfo[2], newInfo[3]);
         createItemElement(newList);
     } else {
-        createProject(newInfo[0]);
+        createProject(newInfo[0], true);
     }
     newForm.reset();
     newDialog.close();

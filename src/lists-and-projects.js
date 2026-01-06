@@ -1,5 +1,3 @@
-import { activeProject } from "./page.js";
-
 //Create to-do list item object
 export const createList = function (title, desc, due, prio) {
     return { title, desc, due, prio }
