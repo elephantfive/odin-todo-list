@@ -17,18 +17,33 @@ function createEditButton (project, buttonType, buttonText) {
     newProjectEditButton.classList.add(buttonType);
     project.appendChild(newProjectEditButton)
     newProjectEditButton.textContent = buttonText
+    newProjectEditButton.addEventListener("click", (event) => {
+        setActive(project);
+        editProject(project);
+    })
+}
+
+//Project editing functionality
+function editProject(project) {
+    const editProjectDialog = document.querySelector("#edit-project");
+    editProjectDialog.showModal();
+}
+
+//Handle editing form
+export const handleEditProjectForm = function() {
+    const editProjectDialog = document.querySelector("#edit-project");
+    const editProjectForm = document.querySelector("#edit-project-form");
+    editProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        activeProject.children[0].textContent = editProjectForm.children[0].children[1].value;
+        editProjectForm.reset();
+        editProjectDialog.close();
+    })
 }
 
 //Create project DOM object
 export const createProject = function (title, active = false) {
     const projects = document.querySelector(".projects");
-
-    for (const child of projects.children) {
-        if (child.id === title) {
-            console.log("Error! Project name already in use.")
-            return 1;
-        }
-    }
 
     const project = document.createElement("div")
     project.addEventListener("click", (event) => {
