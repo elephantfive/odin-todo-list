@@ -11,7 +11,13 @@ function setActive(proj) {
     proj.classList.add("active");
 }
 
-//Create project 
+//Create project edit DOM object
+function createEditButton (project, buttonType, buttonText) {
+    const newProjectEditButton = document.createElement("button");
+    newProjectEditButton.classList.add(buttonType);
+    project.appendChild(newProjectEditButton)
+    newProjectEditButton.textContent = buttonText
+}
 
 //Create project DOM object
 export const createProject = function (title, active = false) {
@@ -25,20 +31,18 @@ export const createProject = function (title, active = false) {
     }
 
     const project = document.createElement("div")
-
     project.addEventListener("click", (event) => {
         event.preventDefault();
         setActive(project);
     });
-
     if (active) {
         setActive(project);
     }
-
     
     const projectHeading = document.createElement("h2");
     projectHeading.textContent = title;
     project.appendChild(projectHeading);
+    createEditButton(project, "edit-project", "Edit Project");
     project.classList.add("project");
     project.id = title;
     projects.appendChild(project);
