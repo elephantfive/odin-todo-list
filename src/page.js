@@ -2,8 +2,9 @@ import { titleCase } from "./utils.js";
 import { createList } from "./lists-and-projects.js";
 import { createProject } from "./lists-and-projects.js";
 import { projectList } from "./lists-and-projects.js";
-export let activeProject;
+let activeProject;
 
+//Set active project
 function setActive(proj) {
     const projects = document.querySelector(".projects");
     for (const child of projects.children) {
@@ -27,7 +28,7 @@ function createEditButton (project, buttonType, buttonText) {
 }
 
 //Handle editing form
-export const handleEditProjectForm = function() {
+export const initEditProjectForm = function() {
     const editProjectDialog = document.querySelector("#edit-project");
     const editProjectForm = document.querySelector("#edit-project-form");
     editProjectForm.addEventListener("submit", (event) => {
@@ -102,7 +103,7 @@ function createItem (formId, formData) {
 }
 
 //Add event listener for either project or task form submission
-export const addType = function (formId) {
+function initCreateForm (formId) {
     const newForm = document.querySelector(`${formId}-form`);
     newForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -112,7 +113,7 @@ export const addType = function (formId) {
 }
 
 //Add event listener for new project/task buttons
-export const linkDialogs = function() {
+function initCreateDialogButtons() {
     const createButtons = document.querySelectorAll(".create-button");
     createButtons.forEach(button => {
         button.addEventListener("click", (event) => {
@@ -122,9 +123,10 @@ export const linkDialogs = function() {
     })
 }
 
+//Initialize event listeners AIO
 export const domInit = function () {
-    addType("#new-project");
-    addType("#new-list");
-    linkDialogs();
-    handleEditProjectForm();
+    initCreateForm("#new-project");
+    initCreateForm("#new-list");
+    initCreateDialogButtons()
+    initEditProjectForm();
 }
