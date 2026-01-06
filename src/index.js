@@ -1,12 +1,12 @@
 import "./styles.css";
-import { createProject } from "./page.js";
-import { showDialogs } from "./page.js";
+import { createProjectElement } from "./page.js";
+import { linkDialogs } from "./page.js";
 import { addType } from "./page.js";
 import { handleEditProjectForm } from "./page.js";
 
-
+linkDialogs();
 handleEditProjectForm();
-createProject("General", true);
-showDialogs();
+
+createProjectElement("General", true);
 addType("#new-project");
 addType("#new-list");

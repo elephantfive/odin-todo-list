@@ -1,5 +1,7 @@
 import { titleCase } from "./utils.js";
 import { createList } from "./lists-and-projects.js";
+import { createProject } from "./lists-and-projects.js";
+import { projects } from "./lists-and-projects.js";
 export let activeProject;
 
 function setActive(proj) {
@@ -41,10 +43,10 @@ export const handleEditProjectForm = function() {
     })
 }
 
-//Create project DOM object
-export const createProject = function (title, active = false) {
-    const projects = document.querySelector(".projects");
+export const createProjectElement = function (title, active = false) {
+    createProject(title);
 
+    const projects = document.querySelector(".projects");
     const project = document.createElement("div")
     project.addEventListener("click", (event) => {
         event.preventDefault();
@@ -95,7 +97,7 @@ function createItem (formId) {
         const newList = createList(newInfo[0], newInfo[1], newInfo[2], newInfo[3]);
         createItemElement(newList);
     } else {
-        createProject(newInfo[0], true);
+        createProjectElement(newInfo[0], true);
     }
     newForm.reset();
     newDialog.close();
@@ -111,7 +113,7 @@ export const addType = function (formId) {
 }
 
 //Add event listener for new project/task buttons
-export const showDialogs = function() {
+export const linkDialogs = function() {
     const createButtons = document.querySelectorAll(".create-button");
     createButtons.forEach(button => {
         button.addEventListener("click", (event) => {
