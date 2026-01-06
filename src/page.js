@@ -33,11 +33,15 @@ export const handleEditProjectForm = function() {
     editProjectForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const formData = new FormData(editProjectForm);
+        editProjectForm.reset();
+        editProjectDialog.close();
+        if (formData.get("title") in projectList) {
+            console.log("Name already in use")
+            return 1
+        }
         projectList[formData.get("title")] = projectList[activeProject.children[0].textContent]
         delete projectList[activeProject.children[0].textContent];
         activeProject.children[0].textContent = formData.get("title");
-        editProjectForm.reset();
-        editProjectDialog.close();
     })
 }
 
@@ -116,4 +120,11 @@ export const linkDialogs = function() {
             buttonDialog.showModal();
         })
     })
+}
+
+export const domInit = function () {
+    addType("#new-project");
+    addType("#new-list");
+    linkDialogs();
+    handleEditProjectForm();
 }
