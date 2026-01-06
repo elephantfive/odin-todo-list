@@ -10,8 +10,8 @@
         <button id="test">Almighty Test Button</button>
         <h1>Sidebar Header</h1>
         <ul>
-            <li><button class="create-project">Create new project</button></li>
-            <li><button class="create-task">Create new task</button></li>
+            <li><button class="create-button" id="new-project-button">Create new project</button></li>
+            <li><button class="create-button" id="new-list-button">Create new task</button></li>
             <li>item 3</li>
             <li>item 4</li>
             <li>item 5</li>
@@ -28,6 +28,38 @@
         <div class="projects">
         </div>
     </div>
-    
+     <dialog id="new-project">
+        <form action="" method="dialog" id="new-project-form">
+            <div class="form-row">
+                <label for="title">New project title:</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </dialog>
+     <dialog id="new-list">
+        <form action="" method="dialog" id="new-list-form">
+            <div class="form-row">
+                <label for="title">New task title:</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+            <div class="form-row">
+                <label for="desc">New task description:</label>
+                <input type="text" name="desc" id="desc" required>
+            </div>
+            <div class="form-row">
+                <label for="due">New task due date:</label>
+                <input type="text" name="due" id="due" required>
+            </div>
+            <div class="form-row">
+                <label for="prio">New task priority:</label>
+                <input type="checkbox" name="prio" id="prio">
+            </div>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

@@ -57,6 +57,26 @@ export const createItemElement = function (item) {
 }
 
 export const createProjectForm = function () {
-    const projectForm = document.createElement("form");
-    
+    const newProjectInfo = [];
+    const newProjectDialog = document.querySelector("#new-project");
+    const newProjectForm = document.querySelector("#new-project-form");
+
+    newProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        for (const row of newProjeftForm.children) {
+            if 
+        }
+    })
+
+}
+
+//Add event listener for new project/task buttons
+export const showDialogs = function() {
+    const createButtons = document.querySelectorAll(".create-button");
+    createButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            const buttonDialog = document.querySelector(`#${button.id.slice(0, -7)}`);
+            buttonDialog.showModal();
+        })
+    })
 }

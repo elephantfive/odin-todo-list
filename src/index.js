@@ -2,6 +2,7 @@ import "./styles.css";
 import { createProject } from "./page.js";
 import { createItemElement } from "./page.js";
 import { activeProject } from "./page.js";
+import { showDialogs } from "./page.js";
 
 //Create to-do list item object
 function createItem (title, desc, due, prio) {
@@ -21,3 +22,5 @@ testButton.addEventListener("click", (event) => {
 function editItem(list, itemType, textVal) {
     list[itemType] = textVal;
 }
+
+showDialogs();
