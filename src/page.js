@@ -1,4 +1,5 @@
 import { titleCase } from "./utils.js";
+import { createList } from "./lists-and-projects.js";
 export let activeProject;
 
 function setActive(proj) {
@@ -65,12 +66,17 @@ function createItem (formId) {
         for (const child of row.children) {
             if (child.hasAttribute('id')) {
                 newInfo.push(child.value);
-                child.value = '';
             }
         }
     }
+    if (formId === "#new-list") {
+        const newList = createList(newInfo[0], newInfo[1], newInfo[2], newInfo[3]);
+        createItemElement(newList);
+    } else {
+        createProject(newInfo[0]);
+    }
+    newForm.reset();
     newDialog.close();
-    console.log(newInfo);
 }
 
 //Add event listener for either project or task form submission
