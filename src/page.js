@@ -18,6 +18,7 @@ const createProjectElement = function createProjectDomElement () {
     const newProject = document.createElement("div");
     const projHeading = document.createElement("h2");
     const newDialog = document.createElement("dialog");
+    domProjectList.appendChild(newDialog);
     const newForm = createForm(
         {
             "tagName": "input",
@@ -32,7 +33,7 @@ const createProjectElement = function createProjectDomElement () {
             "value": "Submit",
             
     },)
-    domProjectList.appendChild(newDialog);
+    
     newDialog.appendChild(newForm);
     newDialog.showModal();
 
@@ -44,12 +45,9 @@ const createProjectElement = function createProjectDomElement () {
             newProject.appendChild(projHeading);
             domProjectList.appendChild(newProject);
         }
-        
         newDialog.close();
         newDialog.remove();
     })
-
-
 }
 
 export const createForm = function createFormWithVariableParameters (...args) {
