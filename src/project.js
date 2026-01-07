@@ -1,4 +1,4 @@
-const createProject = function createProjectObject(title) {
+export const createProject = function createProjectObject(title) {
     const projectLists = []
     return {title, projectLists}
 }
