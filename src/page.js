@@ -39,14 +39,17 @@ const createProjectElement = function createProjectDomElement () {
     newForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const formData = new FormData(newForm);
-        projHeading.textContent = formData.get("title")
-        createProject(formData.get("title"));
+        if (createProject(formData.get("title"))) {
+            projHeading.textContent = formData.get("title")
+            newProject.appendChild(projHeading);
+            domProjectList.appendChild(newProject);
+        }
+        
         newDialog.close();
         newDialog.remove();
     })
 
-    newProject.appendChild(projHeading);
-    domProjectList.appendChild(newProject);
+
 }
 
 export const createForm = function createFormWithVariableParameters (...args) {
