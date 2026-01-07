@@ -6,5 +6,5 @@ export const createProject = function createProjectObject(title) {
         return false;
     }
     masterProjectList[title] = []
-    return true;
+    return title;
 }

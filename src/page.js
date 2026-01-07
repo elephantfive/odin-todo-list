@@ -13,41 +13,14 @@ const createListElement = function createListDomElement (project, list) {
     project.appendChild(newList)
 }
 
-const createProjectElement = function createProjectDomElement () {
+const createProjectElement = function createProjectDomElement (project) {
     const domProjectList = document.querySelector("#projects");
     const newProject = document.createElement("div");
+    newProject.classList.add("active");
     const projHeading = document.createElement("h2");
-    const newDialog = document.createElement("dialog");
-    domProjectList.appendChild(newDialog);
-    const newForm = createForm(
-        {
-            "tagName": "input",
-            "type": "text",
-            "name": "title",
-            "id": "title",
-            "required": '',
-        },
-        {
-            "tagName": "input",
-            "type": "submit",
-            "value": "Submit",
-            
-    },)
-    
-    newDialog.appendChild(newForm);
-    newDialog.showModal();
-
-    newForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(newForm);
-        if (createProject(formData.get("title"))) {
-            projHeading.textContent = formData.get("title")
-            newProject.appendChild(projHeading);
-            domProjectList.appendChild(newProject);
-        }
-        newDialog.close();
-        newDialog.remove();
-    })
+    projHeading.textContent = project;
+    newProject.appendChild(projHeading);
+    domProjectList.appendChild(newProject);
 }
 
 export const createForm = function createFormWithVariableParameters (...args) {
@@ -74,12 +47,44 @@ export const createForm = function createFormWithVariableParameters (...args) {
 }
 
 export const handleClickEvents = function handleListenersForClickEvents (id) {
+    const body = document.querySelector("body")
+    const createProjectCheck = function checkValidityOfNewProjectName () {
+        const newDialog = document.createElement("dialog");
+        const newForm = createForm(
+            {
+                "tagName": "input",
+                "type": "text",
+                "name": "title",
+                "id": "title",
+                "required": '',
+            },
+            {
+                "tagName": "input",
+                "type": "submit",
+                "value": "Submit",
+                
+        },)
+        body.appendChild(newDialog);
+        newDialog.appendChild(newForm);
+        newDialog.showModal();
+
+        newForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(newForm);
+            if (createProject(formData.get("title"))) {
+                createProjectElement(formData.get("title"));
+            }
+            newDialog.close();
+            newDialog.remove();
+        })
+    }
+
     const element = document.querySelector(id);
     element.addEventListener("click", (event) => {
         event.preventDefault();
         switch(id) {
             case "#new-project-button":
-                createProjectElement();
+                createProjectCheck();
                 break;
         }
     })
