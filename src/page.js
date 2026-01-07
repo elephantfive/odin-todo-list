@@ -15,15 +15,17 @@ const createListElement = function createListDomElement (project, list) {
 
 const createProjectElement = function createProjectDomElement (project) {
     const domProjectList = document.querySelector("#projects");
-    for (const child of domProjectList.children) {
+    [...domProjectList.children].forEach((child) => {
         child.classList.remove("active");
-    }
+    })
     const newProject = document.createElement("div");
     newProject.classList.add("active");
+    newProject.classList.add("project");
     const projHeading = document.createElement("h2");
     projHeading.textContent = project;
     newProject.appendChild(projHeading);
     domProjectList.appendChild(newProject);
+    handleClickEvents(".project");
 }
 
 export const createForm = function createFormWithVariableParameters (...args) {
@@ -82,16 +84,28 @@ export const handleClickEvents = function handleListenersForClickEvents (id) {
         })
     }
 
-    const element = document.querySelector(id);
-    element.addEventListener("click", (event) => {
-        event.preventDefault();
-        switch(id) {
-            case "#new-project-button":
-                createProjectCheck();
-                break;
-        }
+    const changeActive = function changeActiveProject() {
+        const projects = document.querySelector("#projects");
+        [...projects.children].forEach((child) => {
+            child.classList.remove("active")
+        })
+    }
+
+    const elements = document.querySelectorAll(id);
+    elements.forEach((element) => {
+        element.addEventListener("click", (event) => {
+            event.preventDefault();
+            switch(id) {
+                case "#new-project-button":
+                    createProjectCheck();
+                    break;
+                case ".project":
+                    changeActive();
+                    element.classList.add("active");
+                    break;
+            }
+        })
     })
-    
 }
 
 
