@@ -22,6 +22,18 @@ const createProjectElement = function createProjectDomElement (project) {
     domProjectList.appendChild(newProject);
 }
 
-const createForm = function createFormWithDynamicElements() {
+const createForm = function createFormWithDynamicElements(...args) {
+    const form = document.createElement("form");
+    form.setAttribute("method", "dialog");
+    form.setAttribute("action", "");
+
     
 }
+
+export const createRow = function createFormRow (...args) {
+        const row = document.createElement("input");
+        args.forEach((arg) => {
+            row.setAttribute(Object.keys(arg), Object.values(arg))
+        })
+        console.log(row);
+    }
