@@ -22,18 +22,26 @@ const createProjectElement = function createProjectDomElement (project) {
     domProjectList.appendChild(newProject);
 }
 
-const createForm = function createFormWithDynamicElements(...args) {
+export const createForm = function createFormWithDynamicElements(id, ...args) {
     const form = document.createElement("form");
+    form.setAttribute("id", id);
     form.setAttribute("method", "dialog");
-    form.setAttribute("action", "");
+    form.setAttribute("action", '');
 
+    args.forEach((arg) => {
+        createRow(form, arg)
+    })
+
+    console.log(form);
     
 }
 
-export const createRow = function createFormRow (tagName, ...args) {
-        const row = document.createElement(tagName);
-        args.forEach((arg) => {
-            row.setAttribute(Object.keys(arg), Object.values(arg))
-        })
-        console.log(row);
-    }
+export const createRow = function createFormRow (form, rowInfo) {
+    const row = document.createElement(rowInfo['tagName']);
+    Object.keys(rowInfo).forEach((key) => {
+        if (key !== 'tagName') {
+            row.setAttribute(`${key}`, rowInfo[key])
+        }
+    })
+    form.appendChild(row);
+}

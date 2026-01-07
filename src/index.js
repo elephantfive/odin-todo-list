@@ -1,4 +1,10 @@
 import "./styles.css";
-import { createRow } from "./page.js";
+import { createForm } from "./page.js";
 
-createRow("input", {"type": "text"}, {"id": "title"}, {"name": "title"})
+createForm("test-form", {
+    "tagName": "input",
+    "type": "text",
+    "name": "title",
+    "id": "title",
+    "required": '',
+})
