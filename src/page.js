@@ -2,6 +2,8 @@ import { titleCase } from "./utils.js";
 import { createList } from "./lists-and-projects.js";
 import { createProject } from "./lists-and-projects.js";
 import { projectList } from "./lists-and-projects.js";
+import { format } from "date-fns";
+
 //Three global vars need to be localized
 let activeProject;
 let activeList;
