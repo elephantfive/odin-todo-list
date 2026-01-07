@@ -121,7 +121,6 @@ export const createItemElement = function (item) {
         newListItem.classList.add(attribute);
         itemList.appendChild(newListItem);
     }
-
     newItem.appendChild(itemList);
     createListEditButton(newItem, itemList, item);
     activeProject.appendChild(newItem);
@@ -162,6 +161,25 @@ function initCreateDialogButtons() {
     })
 }
 
+//Button to delete projects/to-do lists
+function initDeleteButton (buttonId) {
+    const button = document.querySelector(buttonId)
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (buttonId === "#delete-project") {
+            activeProject.remove();
+        } else {
+            activeListElement.parentElement.remove();
+        }
+        document.querySelectorAll('dialog[open]').forEach(dialog => {
+            dialog.close();
+        });
+        document.querySelectorAll('form').forEach(form => {
+            form.reset();
+        })
+    })
+}
+
 //Initialize event listeners AIO
 export const domInit = function () {
     initCreateForm("#new-project");
@@ -169,4 +187,6 @@ export const domInit = function () {
     initCreateDialogButtons()
     initEditProjectForm();
     initEditListForm()
+    initDeleteButton("#delete-project")
+    initDeleteButton("#delete-list")
 }
