@@ -2,8 +2,10 @@ import { titleCase } from "./utils.js";
 import { createList } from "./lists-and-projects.js";
 import { createProject } from "./lists-and-projects.js";
 import { projectList } from "./lists-and-projects.js";
+//Three global vars need to be localized
 let activeProject;
 let activeList;
+let activeListElement;
 
 //Set active project
 function setActive(proj) {
@@ -75,13 +77,14 @@ export const createProjectElement = function (title, active = false) {
 }
 
 //Create to-do edit button
-function createListEditButton (list) {
-    activeList = list;
+function createListEditButton (div, listElement, list) {
     const newEditButton = document.createElement("button");
     newEditButton.classList.add('list-edit');
-    list.appendChild(newEditButton);
+    div.appendChild(newEditButton);
     newEditButton.textContent = "Edit to-do list";
     newEditButton.addEventListener("click", (event) => {
+        activeList = list;
+        activeListElement = listElement;
         const editListDialog = document.querySelector("#edit-list");
         editListDialog.showModal();
     })
@@ -89,13 +92,18 @@ function createListEditButton (list) {
 
 //Edit to-do list via form
 function initEditListForm() {
-    const editListDialog = document.querySelector("edit-list")
+    const editListDialog = document.querySelector("#edit-list")
     const editListForm = document.querySelector("#edit-list-form")
     editListForm.addEventListener("submit", event => {
         event.preventDefault();
         const formData = new FormData(editListForm);
         for (const key in activeList) {
-            activeList[key] = formData[key];
+            activeList[key] = formData.get(key);
+            for (const child of activeListElement.children) {
+                if (child.classList.contains(key)) {
+                    child.textContent = formData.get(key);
+                }
+            }
         }
         editListForm.reset();
         editListDialog.close();
@@ -115,7 +123,7 @@ export const createItemElement = function (item) {
     }
 
     newItem.appendChild(itemList);
-    createListEditButton(newItem);
+    createListEditButton(newItem, itemList, item);
     activeProject.appendChild(newItem);
 }
 
