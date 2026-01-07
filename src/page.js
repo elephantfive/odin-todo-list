@@ -10,3 +10,14 @@ const createListElement = function createListDomElement (project, list) {
 
     project.appendChild(newList)
 }
+
+const createProjectElement = function createProjectDomElement (project) {
+    const domProjectList = document.querySelector("#projects");
+    const newProject = document.createElement("div");
+    const projHeading = document.createElement("h2");
+    
+    projHeading.textContent = project["title"];
+
+    newProject.appendChild(projHeading);
+    domProjectList.appendChild(newProject);
+}
