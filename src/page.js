@@ -38,8 +38,9 @@ export const createForm = function createFormWithDynamicElements(id, ...args) {
 
 export const createRow = function createFormRow (form, rowInfo) {
     const row = document.createElement(rowInfo['tagName']);
+    row.textContent = rowInfo['textContent'];
     Object.keys(rowInfo).forEach((key) => {
-        if (key !== 'tagName') {
+        if (key !== 'tagName' && key !== 'textContent') {
             row.setAttribute(`${key}`, rowInfo[key])
         }
     })
