@@ -15,6 +15,9 @@ const createListElement = function createListDomElement (project, list) {
 
 const createProjectElement = function createProjectDomElement (project) {
     const domProjectList = document.querySelector("#projects");
+    for (const child of domProjectList.children) {
+        child.classList.remove("active");
+    }
     const newProject = document.createElement("div");
     newProject.classList.add("active");
     const projHeading = document.createElement("h2");
