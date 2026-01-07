@@ -21,10 +21,13 @@ const createProjectElement = function createProjectDomElement (project) {
     const newProject = document.createElement("div");
     newProject.classList.add("active");
     newProject.classList.add("project");
+
     const projHeading = document.createElement("h2");
     projHeading.textContent = project;
     newProject.appendChild(projHeading);
+
     domProjectList.appendChild(newProject);
+    
     handleClickEvents(".project");
 }
 
