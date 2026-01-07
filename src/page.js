@@ -30,8 +30,8 @@ const createForm = function createFormWithDynamicElements(...args) {
     
 }
 
-export const createRow = function createFormRow (...args) {
-        const row = document.createElement("input");
+export const createRow = function createFormRow (tagName, ...args) {
+        const row = document.createElement(tagName);
         args.forEach((arg) => {
             row.setAttribute(Object.keys(arg), Object.values(arg))
         })

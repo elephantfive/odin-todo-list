@@ -1,4 +1,4 @@
 import "./styles.css";
 import { createRow } from "./page.js";
 
-createRow({"type": "text"}, {"id": "title"}, {"name": "title"})
+createRow("input", {"type": "text"}, {"id": "title"}, {"name": "title"})
